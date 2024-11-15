@@ -7,5 +7,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::
 Route::post('/user', [\App\Http\Controllers\AppUserController::class, 'createUser']);
+
+Route::get('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'getTaskBoardData']);
+Route::post('/taskboard', [\App\Http\Controllers\TaskboardController::class, 'createTaskboard']);
+
+Route::post('/stage', [\App\Http\Controllers\StageController::class, 'createStage']);
+
+Route::post('/task', [\App\Http\Controllers\TaskController::class, 'createTask']);

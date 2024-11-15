@@ -27,6 +27,4 @@ class AppUserController extends Controller
             'success' => false
         ], 500);
     }
-
-    public function
 }
