@@ -14,4 +14,6 @@ Route::post('/taskboard', [\App\Http\Controllers\TaskboardController::class, 'cr
 
 Route::post('/stage', [\App\Http\Controllers\StageController::class, 'createStage']);
 
+Route::get('/task', [\App\Http\Controllers\TaskController::class, 'getTaskIdByName']);
 Route::post('/task', [\App\Http\Controllers\TaskController::class, 'createTask']);
+Route::put('/task/{id}', [\App\Http\Controllers\TaskController::class, 'moveTask']);
