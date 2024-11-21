@@ -18,7 +18,8 @@ class StageController extends Controller
         if ($stage->save()) {
             return response()->json([
                 'message' =>  'Taskboard created',
-                'success' => true
+                'success' => true,
+                'stageId' => $stage->id
             ], 201);
         }
 
@@ -26,5 +27,24 @@ class StageController extends Controller
             'message' => 'Something went wrong',
             'success' => false
         ], 500);
+    }
+
+    public function deleteStage(int $stageId): JsonResponse
+    {
+        $stage = Stage::find($stageId);
+
+        if (!$stage) {
+            return response()->json([
+                'message' => 'Invalid stage id',
+                'success' => false
+            ], 404);
+        }
+
+        if ($stage->delete()) {
+            return response()->json([
+                'message' => 'Stage deleted',
+                'success' => true
+            ]);
+        }
     }
 }

@@ -13,6 +13,7 @@ Route::get('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class,
 Route::post('/taskboard', [\App\Http\Controllers\TaskboardController::class, 'createTaskboard']);
 
 Route::post('/stage', [\App\Http\Controllers\StageController::class, 'createStage']);
+Route::delete('/stage/{id}', [\App\Http\Controllers\StageController::class, 'deleteStage']);
 
 Route::get('/task', [\App\Http\Controllers\TaskController::class, 'getTaskIdByName']);
 Route::post('/task', [\App\Http\Controllers\TaskController::class, 'createTask']);
