@@ -13,6 +13,7 @@ class TaskController extends Controller
         $task = new Task();
 
         $task->name = $request->name;
+        $task->position = $request->position;
         $task->stage_id = $request->stage_id;
 
         if ($task->save()) {
@@ -33,6 +34,7 @@ class TaskController extends Controller
     {
         $task = Task::find($taskId);
 
+        $task->position = $request->position;
         $task->stage_id = $request->stage_id;
 
         if ($task->save()) {

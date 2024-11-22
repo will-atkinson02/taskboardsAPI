@@ -40,6 +40,8 @@ class StageController extends Controller
             ], 404);
         }
 
+        $stage->tasks()->delete();
+
         if ($stage->delete()) {
             return response()->json([
                 'message' => 'Stage deleted',

@@ -29,8 +29,12 @@ class TaskboardController extends Controller
     }
 
     public function getTaskBoardData(int $taskboardId): JsonResponse
-    {
+    {   
         $taskboard = Taskboard::with(['stages.tasks'])->find($taskboardId);
+
+        if (!$taskboard) {
+            $taskboard = Taskboard::find($taskboardId);
+        }
 
         return response()->json([
             'message' =>  'Taskboard data retrieved',
