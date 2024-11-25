@@ -11,6 +11,7 @@ Route::post('/user', [\App\Http\Controllers\AppUserController::class, 'createUse
 
 Route::get('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'getTaskBoardData']);
 Route::post('/taskboard', [\App\Http\Controllers\TaskboardController::class, 'createTaskboard']);
+Route::put('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'changeTaskboardName']);
 
 Route::post('/stage', [\App\Http\Controllers\StageController::class, 'createStage']);
 Route::delete('/stage/{id}', [\App\Http\Controllers\StageController::class, 'deleteStage']);

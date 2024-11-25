@@ -32,14 +32,29 @@ class TaskboardController extends Controller
     {   
         $taskboard = Taskboard::with(['stages.tasks'])->find($taskboardId);
 
-        if (!$taskboard) {
-            $taskboard = Taskboard::find($taskboardId);
-        }
-
         return response()->json([
             'message' =>  'Taskboard data retrieved',
             'success' => true,
             'data' => $taskboard
         ]);
+    }
+
+    public function changeTaskboardName(int $taskboardId, Request $request): JsonResponse
+    {
+        $taskboard = Taskboard::find($taskboardId);
+
+        $taskboard->name = $request->name;
+
+        if ($taskboard->save()) {
+            return response()->json([
+                'message' =>  'Taskboard name changed',
+                'success' => true
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Something went wrong',
+            'success' => false
+        ], 500);
     }
 }
