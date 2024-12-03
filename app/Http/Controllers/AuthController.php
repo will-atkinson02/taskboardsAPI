@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AppUser;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -17,7 +17,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        $user = AppUser::where('username', $request->username)->first();
+        $user = User::where('username', $request->username)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
@@ -35,8 +35,8 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request): JsonResponse 
-    {
-        $user = AppUser::where('username', $request->username)->first();
+    {   
+        $user = User::where('username', $request->username)->first();
 
         if ($user->tokens()->delete()) {
             return response()->json([
@@ -50,14 +50,16 @@ class AuthController extends Controller
     }
 
     public function register(Request $request): JsonResponse
-    {
+    {   
         $request->validate([
             'username' => 'required',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
-        $user = AppUser::create([
+        $user = User::create([
             'username' => $request->username,
+            'email' => $request->email,
             'password' => Hash::make($request->password)
         ]); 
 
@@ -76,10 +78,10 @@ class AuthController extends Controller
             'success' => false
         ], 500); 
     }
-    public function getUser(Request $request): JsonResponse
+    public function getUser(string $username): JsonResponse
     {
-        $user = AppUser::where('username', $request->username)->first();
-
+        $user = User::where('username', $username)->with(['taskboards'])->first();
+        
         if ($user) {
             return response()->json([
                 'message' => 'User retrieved',

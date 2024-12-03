@@ -10,4 +10,9 @@ class Taskboard extends Model
     {
         return $this->hasMany(Stage::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
