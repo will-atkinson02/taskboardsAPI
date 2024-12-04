@@ -3,22 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Taskboard;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TaskboardController extends Controller
 {
     public function createTaskboard(Request $request): JsonResponse 
-    {
+    {   
+        $user_id = User::where('username', $request->username)->value('id');
+
+        $nameCheck = Taskboard::where('name', 'LIKE', 'Untitled %')
+                        ->whereRaw('name REGEXP ?', ['^Untitled [0-9]+$'])
+                        ->orderByRaw('CAST(SUBSTRING(name, 9) AS UNSIGNED) DESC')
+                        ->value('name');
+
         $taskboard = new Taskboard();
 
-        $taskboard->name = $request->name;
-        $taskboard->user_id = $request->user_id;
+        if (!$nameCheck) {
+            $taskboard->name = "Untitled 1";    
+        } else {
+            $taskboard->name = "Untitled ". (String)((int)substr($nameCheck, 9) + 1);
+        }
+        $taskboard->user_id = $user_id;
 
         if ($taskboard->save()) {
             return response()->json([
                 'message' =>  'Taskboard created',
-                'success' => true
+                'success' => true,
+                'taskboard_id' => $taskboard->id
             ], 201);
         }
 
