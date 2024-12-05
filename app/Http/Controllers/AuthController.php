@@ -80,7 +80,11 @@ class AuthController extends Controller
     }
     public function getUser(string $username): JsonResponse
     {
-        $user = User::where('username', $username)->with(['taskboards'])->first();
+        $user = User::where('username', $username)
+                ->with(['taskboards' => function ($query) {
+                    $query->orderBy('updated_at', 'desc'); // Sort taskboards by updated_at
+                }])
+                ->first();
         
         if ($user) {
             return response()->json([

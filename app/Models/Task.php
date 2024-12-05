@@ -10,4 +10,6 @@ class Task extends Model
     {
         return $this->belongsTo(Stage::class);
     }
+
+    protected $touches = ['stage'];
 }

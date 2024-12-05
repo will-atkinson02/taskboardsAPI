@@ -15,4 +15,6 @@ class Stage extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    protected $touches = ['taskboard'];
 }
