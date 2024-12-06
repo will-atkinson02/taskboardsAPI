@@ -17,7 +17,7 @@ class StageController extends Controller
 
         if ($stage->save()) {
             return response()->json([
-                'message' =>  'Taskboard created',
+                'message' =>  'Stage created',
                 'success' => true,
                 'stageId' => $stage->id
             ], 201);
