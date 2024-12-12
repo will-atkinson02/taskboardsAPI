@@ -30,16 +30,18 @@ class TaskController extends Controller
         ], 500);
     }
 
-    public function moveTask(int $taskId, Request $request): JsonResponse
+    public function updateTask(int $taskId, Request $request): JsonResponse
     {
         $task = Task::find($taskId);
 
-        $task->position = $request->position;
-        $task->stage_id = $request->stage_id;
+        $task->position = $request->position ?? $task->position;
+        $task->description = $request->description ?? $task->description;
+        $task->colour = $request->colour ?? $task->colour;
+        $task->stage_id = $request->stage_id ?? $task->stage_id;
 
         if ($task->save()) {
             return response()->json([
-                'message' => 'Task moved',
+                'message' => 'Task updated',
                 'success' => true
             ], 201);
         }
@@ -52,7 +54,7 @@ class TaskController extends Controller
 
     public function getTaskIdByName(Request $request): JsonResponse
     {
-        $task = Task::where('name', $request->name)->get()->makeHidden(['name', 'stage_id', 'created_at', 'updated_at']);
+        $task = Task::where('name', $request->name)->get()->makeHidden(['name', 'description', 'colour', 'stage_id', 'created_at', 'updated_at']);
 
         return response()->json([
             'message' =>  'Task ID retrieved',

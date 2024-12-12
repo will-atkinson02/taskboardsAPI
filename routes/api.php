@@ -27,6 +27,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/task', [\App\Http\Controllers\TaskController::class, 'getTaskIdByName']);
     Route::post('/task', [\App\Http\Controllers\TaskController::class, 'createTask']);
-    Route::put('/task/{id}', [\App\Http\Controllers\TaskController::class, 'moveTask']);
+    Route::put('/task/{id}', [\App\Http\Controllers\TaskController::class, 'updateTask']);
 });
 
