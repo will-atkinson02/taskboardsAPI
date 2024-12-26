@@ -49,4 +49,30 @@ class StageController extends Controller
             ]);
         }
     }
+
+    public function updateStage(int $stageId, Request $request): JsonResponse
+    {
+        $stage = Stage::find($stageId);
+
+        if (!$stage) {
+            return response()->json([
+                'message' => 'Invalid stage id',
+                'success' => false
+            ], 404);
+        }
+
+        $stage->name = $request->name ?? $stage->name;
+
+        if ($stage->save()) {
+            return response()->json([
+                'message' => 'Task updated',
+                'success' => true
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Something went  wrong',
+            'success' => false
+        ], 500);
+    }
 }

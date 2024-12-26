@@ -34,6 +34,7 @@ class TaskController extends Controller
     {
         $task = Task::find($taskId);
 
+        $task->name = $request->name ?? $task->name;
         $task->position = $request->position ?? $task->position;
         $task->description = $request->has('description') ? $request->description : $task->description;
         $task->colour = $request->colour ?? $task->colour;

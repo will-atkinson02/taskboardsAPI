@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'changeTaskboardName']);
 
     Route::post('/stage', [\App\Http\Controllers\StageController::class, 'createStage']);
+    Route::put('/stage/{id}', [\App\Http\Controllers\StageController::class, 'updateStage']);
     Route::delete('/stage/{id}', [\App\Http\Controllers\StageController::class, 'deleteStage']);
 
     Route::get('/task', [\App\Http\Controllers\TaskController::class, 'getTaskIdByName']);
