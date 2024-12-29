@@ -13,6 +13,7 @@ class StageController extends Controller
         $stage = new Stage();
 
         $stage->name = $request->name;
+        $stage->position = $request->position;
         $stage->taskboard_id = $request->taskboard_id;
 
         if ($stage->save()) {
@@ -62,6 +63,7 @@ class StageController extends Controller
         }
 
         $stage->name = $request->name ?? $stage->name;
+        $stage->position = $request->position ?? $stage->position;
 
         if ($stage->save()) {
             return response()->json([
