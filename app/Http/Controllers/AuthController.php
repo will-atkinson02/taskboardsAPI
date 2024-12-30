@@ -21,7 +21,8 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Invalid credentials'
+                'message' => 'Invalid credentials',
+                'success' => false
             ], 401);
         }
 
@@ -30,7 +31,8 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'token_type' => 'Bearer',
-            'token' => $token
+            'token' => $token,
+            'success' => true
         ]);
     }
 
@@ -69,14 +71,15 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Registration succesful',
                 'token_type' => 'Bearer',
-                'token' => $token
+                'token' => $token,
+                'success' => true
             ]);
         }
 
         return response()->json([
             'message' => 'Something went wrong',
             'success' => false
-        ], 500); 
+        ], 500);
     }
     public function getUser(string $username): JsonResponse
     {

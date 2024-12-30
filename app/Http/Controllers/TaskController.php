@@ -53,6 +53,30 @@ class TaskController extends Controller
         ], 500);
     }
 
+    public function deleteTask(int $taskId): JsonResponse
+    {
+        $task = Task::find($taskId);
+
+        if (!$task) {
+            return response()->json([
+                'message' => 'Invalid task id',
+                'success' => false
+            ], 404);
+        }
+
+        if ($task->delete()) {
+            return response()->json([
+                'message' => 'Task deleted',
+                'success' => true
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Server error',
+            'success' => false
+        ], 500);
+    }
+
     public function getTaskIdByName(Request $request): JsonResponse
     {
         $task = Task::where('name', $request->name)->get()->makeHidden(['name', 'description', 'colour', 'stage_id', 'created_at', 'updated_at']);
