@@ -13,7 +13,8 @@ class TaskboardController extends Controller
     {   
         $user_id = User::where('username', $request->username)->value('id');
 
-        $nameCheck = Taskboard::where('name', 'LIKE', 'Untitled %')
+        $nameCheck = Taskboard::where('user_id', $user_id)
+                        ->where('name', 'LIKE', 'Untitled %')
                         ->whereRaw('name REGEXP ?', ['^Untitled [0-9]+$'])
                         ->orderByRaw('CAST(SUBSTRING(name, 9) AS UNSIGNED) DESC')
                         ->value('name');
