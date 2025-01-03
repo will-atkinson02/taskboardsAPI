@@ -10,6 +10,12 @@ class TaskController extends Controller
 {
     public function createTask(Request $request): JsonResponse
     {
+        $request->validate([
+            'name' => 'required|string|min:1',
+            'position' => 'required|int|min:0',
+            'stage_id' => 'required|int|min:0|exists:stage,id'
+        ]);
+
         $task = new Task();
 
         $task->name = $request->name;
@@ -32,6 +38,14 @@ class TaskController extends Controller
 
     public function updateTask(int $taskId, Request $request): JsonResponse
     {
+        $request->validate([
+            'name' => 'string|min:1',
+            'position' => 'int|min:0',
+            'description' => 'string|min:0|max:255',
+            'colour' => 'string|in:red,blue,green,yellow',
+            'stage_id' => 'int|min:0|exists:stage,id'
+        ]);
+
         $task = Task::find($taskId);
 
         $task->name = $request->name ?? $task->name;

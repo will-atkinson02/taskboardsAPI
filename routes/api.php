@@ -20,7 +20,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'getTaskBoardData']);
     Route::post('/taskboard', [\App\Http\Controllers\TaskboardController::class, 'createTaskboard']);
-    Route::put('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'changeTaskboardName']);
+    Route::put('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'updateTaskboardName']);
+    Route::delete('/taskboard/{id}', [\App\Http\Controllers\TaskboardController::class, 'deleteTaskboard']);
 
     Route::post('/stage', [\App\Http\Controllers\StageController::class, 'createStage']);
     Route::put('/stage/{id}', [\App\Http\Controllers\StageController::class, 'updateStage']);

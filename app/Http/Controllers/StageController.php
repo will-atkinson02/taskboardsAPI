@@ -10,6 +10,12 @@ class StageController extends Controller
 {
     public function createStage(Request $request): JsonResponse 
     {
+        $request->validate([
+            'name' => 'required|string|min:1|max:20',
+            'position' => 'required|int|min:0',
+            'taskboard_id' => 'required|int|min:0|exists:taskboard,id'
+        ]);
+
         $stage = new Stage();
 
         $stage->name = $request->name;
@@ -53,6 +59,11 @@ class StageController extends Controller
 
     public function updateStage(int $stageId, Request $request): JsonResponse
     {
+        $request->validate([
+            'name' => 'string|min:1|max:20',
+            'position' => 'int|min:0',
+        ]);
+
         $stage = Stage::find($stageId);
 
         if (!$stage) {
