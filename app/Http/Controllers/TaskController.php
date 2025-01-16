@@ -11,9 +11,9 @@ class TaskController extends Controller
     public function createTask(Request $request): JsonResponse
     {
         $request->validate([
-            'name' => 'required|string|min:1',
+            'name' => 'required|string|min:1|max:255',
             'position' => 'required|int|min:0',
-            'stage_id' => 'required|int|min:0|exists:stage,id'
+            'stage_id' => 'required|int|min:0|exists:stages,id'
         ]);
 
         $task = new Task();
@@ -43,7 +43,7 @@ class TaskController extends Controller
             'position' => 'int|min:0',
             'description' => 'string|min:0|max:255',
             'colour' => 'string|in:red,blue,green,yellow',
-            'stage_id' => 'int|min:0|exists:stage,id'
+            'stage_id' => 'int|min:0|exists:stages,id'
         ]);
 
         $task = Task::find($taskId);

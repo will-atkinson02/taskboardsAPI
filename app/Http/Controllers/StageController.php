@@ -13,7 +13,7 @@ class StageController extends Controller
         $request->validate([
             'name' => 'required|string|min:1|max:20',
             'position' => 'required|int|min:0',
-            'taskboard_id' => 'required|int|min:0|exists:taskboard,id'
+            'taskboard_id' => 'required|int|min:0|exists:taskboards,id'
         ]);
 
         $stage = new Stage();
