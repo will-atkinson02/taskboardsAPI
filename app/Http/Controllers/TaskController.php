@@ -42,7 +42,7 @@ class TaskController extends Controller
             'name' => 'string|min:1',
             'position' => 'int|min:0',
             'description' => 'string|min:0|max:255',
-            'colour' => 'string|in:red,blue,green,yellow',
+            'colour' => 'string|in:red,blue,green,yellow,orange,purple',
             'stage_id' => 'int|min:0|exists:stages,id'
         ]);
 
